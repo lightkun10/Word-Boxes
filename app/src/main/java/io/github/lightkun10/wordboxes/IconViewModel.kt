@@ -67,7 +67,9 @@ class IconViewModel : ViewModel() {
                         // Get icon id
                         icon.iconId = fetchIcon.getString("icon_id")
                         // Get icon image
-                        icon.iconImg = fetchIcon.getJSONArray("raster_sizes").getJSONObject(7)
+                        val desiredSize = fetchIcon.getJSONArray("raster_sizes").length() - 2
+                        icon.iconImg = fetchIcon.getJSONArray("raster_sizes").getJSONObject(desiredSize)
+                        // icon.iconImg = fetchIcon.getJSONArray("raster_sizes").getJSONObject(7)
                             .getJSONArray("formats").getJSONObject(0).getString("preview_url")
                         // Get icon tags
                         val arrTags = fetchIcon.getJSONArray("tags")
