@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity() {
 //            setMode(stateMode)
 //        }
 
+        showLoading(true)
         showRecyclerGrid()
 
         // setActionBarTitle(title)
@@ -89,9 +91,11 @@ class MainActivity : AppCompatActivity() {
         iconViewModel.getIcons().observe(this, Observer { icons ->
             if (icons != null) {
                 gridHeroAdapter.setData(icons)
-                Toast.makeText(this, icons[0].iconImg, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Success Parsing image", Toast.LENGTH_SHORT).show()
+                showLoading(false)
             } else {
                 Toast.makeText(this@MainActivity, "Error parsing", Toast.LENGTH_SHORT).show()
+                showLoading(true)
             }
         })
 
@@ -161,4 +165,14 @@ class MainActivity : AppCompatActivity() {
     private fun setActionBarTitle(title: String?) {
         supportActionBar?.title = title
     }
+
+    // Hide/show progess bar
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            progressBar.visibility = View.VISIBLE
+        } else {
+            progressBar.visibility = View.GONE
+        }
+    }
+
 }
