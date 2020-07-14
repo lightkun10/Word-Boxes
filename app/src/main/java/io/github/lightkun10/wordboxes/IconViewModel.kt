@@ -24,13 +24,13 @@ class IconViewModel : ViewModel() {
      */
     fun setIcons() {
         val query: String = Rand(10).returnRandomTerm()
-        val url = "https://api.iconfinder.com/v4/icons/search?query=$query&count=100"
+        val url = "https://api.iconfinder.com/v4/icons/search?query=$query&count=20"
 
         val listItems = ArrayList<Icon>()
         // val testUrl = "https://api.iconfinder.com/v4/icons/search?query=compassion&count=20" // ONLY FOR TESTING, limit to 20 per-fetch and keyword is static
 
         val client = AsyncHttpClient()
-        client.addHeader("authorization", "Bearer 0i9EzK3Kcag6Occdk7YhdrHQvFMEbx7MiLBrjwAPAl53YZTBGMmp2VOVTYeGRlPp")
+        client.addHeader("authorization", "Bearer ${BuildConfig.ApiKey}")
 
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(

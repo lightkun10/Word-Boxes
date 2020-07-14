@@ -1,5 +1,6 @@
 package io.github.lightkun10.wordboxes
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -39,44 +40,11 @@ class MainActivity : AppCompatActivity() {
            ukuran lebar & tinggi secara otomatis. Nilai lebar dan tinggi
            recyclerview menjadi konstan. */
 
-        // Reset mode if no data being saved
-//        if (savedInstanceState == null) {
-
-//        }
-//        // Save data when screen orientation changed
-//        else {
-//            title = savedInstanceState.getString(STATE_TITLE).toString()
-//            val stateList = savedInstanceState.getParcelableArrayList<Hero>(STATE_LIST)
-//            val stateMode = savedInstanceState.getInt(STATE_MODE)
-//
-//            setActionBarTitle(title)
-//
-//            if(stateList != null) {
-//                list.addAll(stateList)
-//            }
-//
-//            // Don't forget to set mode to saved mode
-//            setMode(stateMode)
-//        }
-
         showLoading(true)
         showRecyclerGrid()
-
-        // setActionBarTitle(title)
     }
 
-/*============================== END OF MAIN FUNCTIONALITY ==============================*/
 
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        outState.putString(STATE_TITLE, title)
-//        outState.putParcelableArrayList(STATE_LIST, list)
-//        outState.putInt(STATE_MODE, mode)
-//    }
-
-    /*********************************************************************************************
-     * EDIT THIS
-     *********************************************************************************************/
     private fun showRecyclerGrid() {
         /* Perlu menentukan nilai pada metode setLayoutManager() saja
            untuk menentukan bagaimana recyclerview ditampilkan. */
@@ -104,62 +72,20 @@ class MainActivity : AppCompatActivity() {
         gridHeroAdapter.setOnItemClickCallback(object: IconAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Icon) {
                 showSelectedIcon(data)
+
+                /** Do the operation for changing data below... */
+                val toWordboxPage =  Intent(this@MainActivity, WordboxActivity::class.java)
+                toWordboxPage.putExtra(WordboxActivity.EXTRA_ICON_ID, data.iconId)
+                toWordboxPage.putExtra(WordboxActivity.EXTRA_ICON_IMG, data.iconImg)
+                // toWordboxPage.putExtra(WordboxActivity.EXTRA_ICON_TAGS, data.iconTags[Rand(data.iconTags.size - 1).returnRandomInt()])
+                toWordboxPage.putExtra(WordboxActivity.EXTRA_ICON_TAGS, data.iconTags[0])
+                startActivity(toWordboxPage)
             }
         })
     }
 
-//    private fun showRecyclerGrid() {
-//        /* Perlu menentukan nilai pada metode setLayoutManager() saja
-//           untuk menentukan bagaimana recyclerview ditampilkan. */
-//        rv_icons.layoutManager = GridLayoutManager(this, 2)
-//        val gridHeroAdapter = GridHeroAdapter(list)
-//        rv_icons.adapter = gridHeroAdapter
-//
-//        gridHeroAdapter.setOnItemClickCallback(object: GridHeroAdapter.OnItemClickCallback {
-//            override fun onItemClicked(data: Hero) {
-//                showSelectedHero(data)
-//            }
-//        })
-//    }
-    /*********************************************************************************************
-     * END OF EDIT SECTION
-     *********************************************************************************************/
-
-    /* REVIEW: This class(MenuInflater) is used to instantiate menu XML files into Menu objects */
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        // convert menu_main.xml into a menu displayed in activity
-//        menuInflater.inflate(R.menu.menu_main, menu)
-//        return super.onCreateOptionsMenu(menu)
-//    }
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        setMode(item.itemId)
-//        return super.onOptionsItemSelected(item)
-//    }
-
-    /* Handle events when each item being selected/pressed */
-//    private fun setMode(selectedMode: Int) {
-//        when(selectedMode) {
-////            R.id.action_list -> {
-////                title = "Mode List"
-////                showRecyclerList()
-////            }
-//            R.id.action_grid -> {
-//                title = "Mode Grid"
-//                showRecyclerGrid()
-//            }
-//            R.id.action_cardview -> {
-//                title = "Mode CardView"
-//                showRecyclerCardView()
-//            }
-//        }
-//
-//        mode = selectedMode
-//        setActionBarTitle(title)
-//    }
-
     private fun showSelectedIcon(icon: Icon) {
-        Toast.makeText(this, "Kamu memilih ${icon.iconTags[0]}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "You are selecting: ${icon.iconTags[0]}", Toast.LENGTH_SHORT).show()
     }
 
     private fun setActionBarTitle(title: String?) {

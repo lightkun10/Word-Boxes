@@ -41,11 +41,7 @@ class IconAdapter : RecyclerView.Adapter<IconAdapter.GridViewHolder>() {
             with(itemView) {
                 Glide.with(itemView.context)
                      .load(icon.iconImg)
-                     //.apply(RequestOptions().override(350, 550))
                      .into(img_item_photo)
-
-                /* Glide digunakan untuk memuat sebuah gambar, baik yang sudah disiapkan
-                   di drawable maupun berada di server. */
 
                 itemView.setOnClickListener { onItemClickCallback?.onItemClicked(icon) }
             }

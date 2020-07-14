@@ -3,4 +3,8 @@
     <color name="colorPrimary">#f83c42</color>
     <color name="colorPrimaryDark">#f83c42</color>
     <color name="colorAccent">#eecb02</color>
+
+    <color name="try_bg">#f8943c</color>
+
+    <color name="try_main_bg">#f83ca0</color>
 </resources>
